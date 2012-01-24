@@ -61,17 +61,18 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Iesi.Collections.dll</HintPath>
+    <Reference Include="FluentNHibernate">
+      <HintPath>packages\FluentNHibernate.1.3.0.717\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate">
+      <HintPath>packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,6 +81,10 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -88,6 +93,15 @@
     <Compile Include="NHSpecificTest\BugTestCase.cs" />
     <Compile Include="NHSpecificTest\NH1234\DomainClass.cs" />
     <Compile Include="NHSpecificTest\NH1234\SampleTest.cs" />
+    <Compile Include="NHSpecificTest\NH1\Company.cs" />
+    <Compile Include="NHSpecificTest\NH1\CompanyMap.cs" />
+    <Compile Include="NHSpecificTest\NH1\Employee.cs" />
+    <Compile Include="NHSpecificTest\NH1\EmployeeMap.cs" />
+    <Compile Include="NHSpecificTest\NH1\ExEmployee.cs" />
+    <Compile Include="NHSpecificTest\NH1\ExEmployeeMap.cs" />
+    <Compile Include="NHSpecificTest\NH1\Person.cs" />
+    <Compile Include="NHSpecificTest\NH1\PersonMap.cs" />
+    <Compile Include="NHSpecificTest\NH1\QueryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCase.cs" />
     <Compile Include="TestConfigurationHelper.cs" />
@@ -95,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
@@ -136,6 +151,9 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>
-    </PostBuildEvent>
+if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
   </PropertyGroup>
 </Project>
